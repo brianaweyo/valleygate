@@ -1,7 +1,22 @@
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
 
 @import "tailwindcss";
 
 
+:root {
+    --color-deep-blue: #001730;
+    --color-aqua-mint: #4AD7D1;
+    --color-vibrant-red: #FE4A49;
+  }
+  
+  .bg-deep-blue {
+    background-color: var(--color-deep-blue);
+  }
+  
+  .text-aqua-mint {
+    color: var(--color-aqua-mint);
+  }
+  
+  .bg-vibrant-red {
+    background-color: var(--color-vibrant-red);
+  }
+  
