@@ -2,6 +2,13 @@
 @import "tailwindcss";
 
 
+
+html, body {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+
 :root {
     --color-deep-blue: #001730;
     --color-aqua-mint: #4AD7D1;
@@ -12,7 +19,7 @@
     background-color: var(--color-deep-blue);
   }
   
-  .text-aqua-mint {
+  .bg-aqua-mint {
     color: var(--color-aqua-mint);
   }
   
@@ -20,3 +27,20 @@
     background-color: var(--color-vibrant-red);
   }
   
+
+  /* Dropdown Menu */
+.relative:hover .absolute {
+  display: block;
+}
+
+.absolute {
+  display: none;
+  min-width: 200px; 
+  z-index: 1000; /* Ensure it appears above other content */
+  transition: opacity 0.5s ease-in-out; 
+}
+
+/* Dropdown Links */
+.hover\:text-gray-700:hover {
+  color: #374151; /* Darker gray text on hover */
+}
