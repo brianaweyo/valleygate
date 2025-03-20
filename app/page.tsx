@@ -1,4 +1,16 @@
+'use client';
+
+import { motion, AnimatePresence } from "framer-motion";
+import { useTestimonials } from "./hooks/useTestimonials";
+import { testimonials } from "./data/testimonials";
+import { useHorizontalScroll } from "./hooks/useHorizontalScroll";
+
+
 export default function Home() {
+
+  const { scrollRef, scrollLeft, scrollRight } = useHorizontalScroll();
+  const currentTestimonial = useTestimonials(testimonials, 6000);
+
   return (
     <div className="bg-white">
       
@@ -22,62 +34,96 @@ export default function Home() {
             <p className="text-lg md:text-xl text-gray-200 mb-8">
               We help businesses achieve growth, efficiency, and innovation.
             </p>
-            <button className="bg-vibrant-red text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+            <button className="bg-[#4B5563] text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
               Get a Free Consultation
             </button>
           </div>
         </div>
       </section>
 
-      {/* About Us */}
-      <section id ="about-us" className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">About Us</h2>
-          <p className="text-gray-600 text-lg">
-            With over 20 years of experience, we specialize in providing tailored
-            consultancy solutions to help businesses thrive in a competitive
-            landscape. Our team of experts is dedicated to delivering results
-            that matter.
-          </p>
+
+      {/* About Us Section */}
+      <section id="about-us" className="relative min-h-[600px] flex items-center bg-gray-50">
+        <div className="container mx-auto flex flex-col md:flex-row items-center px-8 py-20">
+          
+          {/* Left: Polygon-Shaped Video */}
+          <div className="relative w-full md:w-1/2 h-[400px] overflow-hidden">
+            <div className="polygon-video w-full h-full">
+              <video 
+                className="w-full h-full object-cover"
+                autoPlay 
+                loop 
+                muted 
+                playsInline
+              >
+                <source src="/videos/my_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+
+          {/* Right: About Us Text */}
+          <div className="w-full md:w-1/2 text-gray-900 text-center md:text-left px-8">
+            <h2 className="text-4xl font-bold mb-4">About Us</h2>
+            <p className="text-lg leading-relaxed">
+              With over 20 years of experience, we specialize in providing tailored 
+              consultancy solutions to help businesses thrive in a competitive landscape. 
+              Our team of experts is dedicated to delivering results that matter.
+            </p>
+          </div>
+
         </div>
       </section>
 
-      {/* Services */}
+
+
+
+      {/* Services Section */}
       <section id="services" className="bg-gray-50 py-20">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-gray-900 mb-8">Our Services</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-            <div className="bg-vibrant-red p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold text-white mb-4">
-                Business Strategy
-              </h3>
-              <p className="text-white">
-                We help you develop a winning strategy to achieve your business
-                goals.
-              </p>
+          <div className="relative">
+            {/* Left Scroll Button */}
+            <button
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-transparent border border-white text-white p-3 rounded-full z-10 transition hover:bg-gray-200/30"
+              onClick={scrollLeft}
+            >
+              ◀
+            </button>
+
+            {/* Scrollable Services Container */}
+            <div
+              ref={scrollRef}
+              className="flex space-x-6 overflow-x-auto scroll-smooth scrollbar-hide py-4 px-2"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
+              {[
+                { title: "Business Strategy", description: "Develop a winning strategy.", bg: "bg-[#E5E7EB]", text: "text-gray-900" },
+                { title: "Digital Transformation", description: "Leverage technology for growth.", bg: "bg-[#F3F4F6]", text: "text-gray-900" },
+                { title: "Financial Consulting", description: "Optimize financial performance.", bg: "bg-[#4B5563]", text: "text-white" },
+                { title: "Management Consulting", description: "Streamline operations.", bg: "bg-[#E5E7EB", text: "text-gray-900" },
+                { title: "Marketing & Branding", description: "Enhance brand presence.", bg: "bg-[#F3F4F6]", text: "text-gray-900" },
+                { title: "Technology Consulting", description: "Future-proof with tech.", bg: "bg-[#4B5563]", text: "text-white" },
+              ].map((service, index) => (
+                <div key={index} className={`${service.bg} min-w-[400px] h-60 p-10 rounded-xl shadow-lg flex-shrink-0`}>
+                  <h3 className={`text-2xl font-bold ${service.text} mb-4`}>{service.title}</h3>
+                  <p className={`${service.text}`}>{service.description}</p>
+                </div>
+              ))}
             </div>
 
-            <div className="bg-vibrant-red p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold text-white mb-4">
-                Digital Transformation
-              </h3>
-              <p className="text-white">
-                Leverage technology to streamline operations and drive growth.
-              </p>
-            </div>
-
-            <div className="bg-vibrant-red p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold text-white mb-4">
-                Financial Consulting
-              </h3>
-              <p className="text-white">
-                Optimize your financial performance with expert advice.
-              </p>
-            </div>
+            {/* Right Scroll Button */}
+            <button
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-transparent border border-white text-white p-1.5 rounded-full z-10 transition hover:bg-gray-200/30"
+              onClick={scrollRight}
+            >
+              ▶
+            </button>
           </div>
         </div>
       </section>
+
 
       {/* Case Studies */}
       <section id="case-studies" className="py-20">
@@ -154,30 +200,62 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section id="tstimonials" className="bg-blue-50 py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            What Our Clients Say
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <p className="text-gray-600 italic">
-                "Their expertise helped us transform our business. Highly
-                recommend!"
-              </p>
-              <p className="text-gray-900 font-semibold mt-4">- John Doe</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <p className="text-gray-600 italic">
-                "A game-changer for our company. The results speak for
-                themselves."
-              </p>
-              <p className="text-gray-900 font-semibold mt-4">- Jane Smith</p>
-            </div>
+      
+    {/* Testimonials */}
+      <section id="testimonials" className="bg-[#E5E7EB] py-10">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+          What Our Clients Say
+        </h2>
+
+        <div className="flex justify-center items-center">
+          <div className="relative w-full max-w-lg">
+            <AnimatePresence mode="wait">
+              <motion.div
+
+                // key={currentTestimonial.quote}
+                // initial={{ opacity: 0, rotate: -5 }}
+                // animate={{ opacity: 1, rotate: 0 }}
+                // exit={{ opacity: 0, rotate: 5 }}
+                // transition={{ duration: 0.8, ease: "easeInOut" }}
+                
+                key={currentTestimonial.quote}
+                initial={{ x: 100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: -100, opacity: 0 }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+
+
+                // key={currentTestimonial.quote}
+                // initial={{ opacity: 0, scale: 0.9 }}
+                // animate={{ opacity: 1, scale: 1 }}
+                // exit={{ opacity: 0, scale: 0.9 }}
+                // transition={{ duration: 0.8, ease: "easeInOut" }}
+
+              // key={currentTestimonial.quote}
+              // initial={{ y: 20, opacity: 0 }}
+              // animate={{ y: 0, opacity: 1 }}
+              // exit={{ y: -20, opacity: 0 }}
+              // transition={{ type: "spring", stiffness: 100 }}
+            
+                className="bg-[#F3F4F6] p-6 rounded-lg shadow-md border border-gray-200 w-full flex flex-col items-center"
+                     >
+                {currentTestimonial.image && (
+                  <img
+                    src={currentTestimonial.image}
+                    alt={currentTestimonial.author}
+                    className="w-30 h-30 rounded-full mb-4"
+                  />
+                )}
+                <p className="text-gray-900">"{currentTestimonial.quote}"</p>
+                <p className="text-gray-900 font-semibold mt-4">- {currentTestimonial.author}</p>
+                <p className="text-gray-950 font-bold mt-1"> {currentTestimonial.organization}</p> 
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
     </div>
   );
