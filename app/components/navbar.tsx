@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { FaChevronDown } from "react-icons/fa";
-import {useDropdown }from "../hooks/useDropdown";
+import { useDropdown } from "../hooks/useDropdown";
 
 export default function Navbar() {
   return (
@@ -11,16 +11,15 @@ export default function Navbar() {
         <h1 className="text-2xl font-bold">ValleyGate Consulting</h1>
         <ul className="flex space-x-6">
           {/* Navigation Links with Dropdowns */}
-          <DropdownMenu title="Home" links={[
-            { href: "#intro", label: "Introduction" },
-            { href: "#about-us", label: "About Us" },
+          <DropdownMenu title="Home" mainHref="#top" links={[
+            { href: "/home#about-us", label: "About Us" },
             { href: "#services", label: "Our Services" },
             { href: "#projects", label: "Our Projects" },
             { href: "#clients", label: "Our Clients" },
             { href: "#testimonials", label: "Testimonials" }
           ]} />
 
-          <DropdownMenu title="About Us" links={[
+          <DropdownMenu title="About Us" mainHref="/about#top" links={[
             { href: "/about#mission", label: "Our Mission" },
             { href: "/about#team", label: "Our Team" },
             { href: "/about#history", label: "Company History" },
@@ -28,15 +27,14 @@ export default function Navbar() {
             { href: "/about#careers", label: "Careers" }
           ]} />
 
-          <DropdownMenu title="Services" links={[
-            { href: "/services#strategy", label: "Business Strategy" },
-            { href: "/services#consulting", label: "Management Consulting" },
-            { href: "/services#finance", label: "Financial Advisory" },
-            { href: "/services#marketing", label: "Marketing & Branding" },
-            { href: "/services#technology", label: "Technology Consulting" }
-          ]} />
+          {/* ✅ Services as a Single Link (No Dropdown) */}
+          <li>
+            <Link href="/services#top" className="hover:underline">
+              Services
+            </Link>
+          </li>
 
-          <DropdownMenu title="Industries" links={[
+          <DropdownMenu title="Industries" mainHref="/industries#top" links={[
             { href: "/industries#healthcare", label: "Healthcare" },
             { href: "/industries#finance", label: "Finance & Banking" },
             { href: "/industries#retail", label: "Retail & E-Commerce" },
@@ -44,14 +42,14 @@ export default function Navbar() {
             { href: "/industries#education", label: "Education & EdTech" }
           ]} />
 
-          <DropdownMenu title="Case Studies" links={[
+          <DropdownMenu title="Case Studies" mainHref="/case-studies#top" links={[
             { href: "/case-studies#growth", label: "Business Growth Success" },
             { href: "/case-studies#turnaround", label: "Turnaround Stories" },
             { href: "/case-studies#innovation", label: "Innovation & Tech" },
             { href: "/case-studies#client-impact", label: "Client Impact Stories" }
           ]} />
 
-          <DropdownMenu title="Contact" links={[
+          <DropdownMenu title="Contact" mainHref="/contact#top" links={[
             { href: "/contact#office", label: "Our Office" },
             { href: "/contact#support", label: "Customer Support" },
             { href: "/contact#partners", label: "Partnership Inquiries" }
@@ -62,20 +60,21 @@ export default function Navbar() {
   );
 }
 
-// DropdownMenu Component (Reused for Each Navbar Item)
-function DropdownMenu({ title, links }: { title: string; links: { href: string; label: string }[] }) {
+// ✅ DropdownMenu Component (No Changes Needed)
+function DropdownMenu({ title, mainHref, links }) {
   const { isOpen, toggleDropdown, handleMouseEnter, handleMouseLeave, dropdownRef } = useDropdown();
 
   return (
     <li className="relative" ref={dropdownRef} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className="flex items-center space-x-1">
-        <Link href="#" className="hover:underline">{title}</Link>
+        {/* 🔹 Clickable Navbar Title (Links to First Section) */}
+        <Link href={mainHref} className="hover:underline">{title}</Link>
         <button onClick={toggleDropdown} className="focus:outline-none flex items-center">
           <FaChevronDown className={`transition-transform duration-300 ${isOpen ? "rotate-180" : "rotate-0"}`} />
         </button>
       </div>
 
-      {/* Dropdown Menu */}
+      {/* 🔹 Dropdown Menu */}
       <div
         className={`absolute left-0 mt-2 w-56 bg-[#F3F4F6] shadow-lg rounded-lg py-2 transition-all duration-300 ${
           isOpen ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"

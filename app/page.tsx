@@ -56,7 +56,7 @@ export default function Home() {
                 muted 
                 playsInline
               >
-                <source src="/videos/my_video.mp4" type="video/mp4" />
+                <source src="/videos/moneyvideo.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>
