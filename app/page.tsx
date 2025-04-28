@@ -56,7 +56,7 @@ export default function Home() {
                 muted 
                 playsInline
               >
-                <source src="/videos/moneyvideo.mp4" type="video/mp4" />
+                <source src="/videos/video4.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>
@@ -212,6 +212,7 @@ export default function Home() {
           <div className="relative w-full max-w-lg">
             <AnimatePresence mode="wait">
               <motion.div
+
 
                 // key={currentTestimonial.quote}
                 // initial={{ opacity: 0, rotate: -5 }}

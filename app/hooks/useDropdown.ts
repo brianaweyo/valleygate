@@ -4,22 +4,30 @@ import { useState, useEffect, useRef } from "react";
 export function useDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLLIElement>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
   };
 
-  // Close with a Longer Delay on Mouse Leave
-  const handleMouseLeave = () => {
+  const openDropdown = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setIsOpen(true);
+  };
+
+  const closeDropdown = () => {
     timeoutRef.current = setTimeout(() => {
       setIsOpen(false);
-    }, 900); // Increased from 300ms to 500ms
+    }, 500);
   };
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    setIsOpen(true);
+    openDropdown();
+  };
+
+  const handleMouseLeave = () => {
+    closeDropdown();
   };
 
   useEffect(() => {
@@ -33,5 +41,22 @@ export function useDropdown() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  return { isOpen, toggleDropdown, handleMouseEnter, handleMouseLeave, dropdownRef };
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  return {
+    isOpen,
+    toggleDropdown,
+    handleMouseEnter,
+    handleMouseLeave,
+    dropdownRef,
+  };
 }
