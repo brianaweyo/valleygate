@@ -11,19 +11,19 @@ export interface Testimonial {
       quote: "Their expertise helped us transform our business. Highly recommend!",
       author: "John Doe",
       organization:"WHO",
-      image: "/images/hero-image.jpeg",
+      image: "/images/myimage.jpg",
     },
     {
       quote: "A game-changer for our company. The results speak for themselves.",
       author: "Jane Smith",
       organization:"UNEP" , 
-      image: "/images/hero-image.jpeg",
+      image: "/images/myimage.jpg",
     },
     {
       quote: "Exceptional service and strategic insights that elevated our brand.",
       author: "Michael Johnson",
       organization:"IEEE",
-      image: "/images/hero-image.jpeg",
+      image: "/images/myimage.jpg",
     },
     {
       quote: "Their consulting solutions provided clarity and direction for our team.",
@@ -35,7 +35,7 @@ export interface Testimonial {
       quote: "Reliable and results-driven consultancy service. Highly satisfied!",
       author: "David Brown",
       organization:"IMF",
-      image: "/images/hero-image.jpeg",
+      image: "/images/myimage.jpg",
     },
   ];
   

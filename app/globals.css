@@ -29,11 +29,11 @@ html, body {
   
 
   /* Dropdown Menu */
-.relative:hover .absolute {
+  .relative:hover .dropdown-wrapper .absolute {
   display: block;
 }
 
-.absolute {
+.dropdown-wrapper.absolute {
   display: none;
   min-width: 200px; 
   z-index: 1000; /* Ensure it appears above other content */

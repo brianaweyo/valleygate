@@ -1,4 +1,5 @@
 // import { ArrowRight } from 'lucide-react'; // optional, if you want an icon
+import Link from 'next/link';
 
 export default function Industries() {
   return (
@@ -29,7 +30,7 @@ export default function Industries() {
           <IndustryCard 
             title="Finance & Banking"
             description="We drive innovation, automate compliance, and reshape financial services into smarter, resilient systems ready for the future."
-            link="#finance"
+            link="/industries/finance"
           />
 
           {/* Health */}
@@ -102,10 +103,12 @@ function IndustryCard({ title, description, link }: { title: string, description
         <h2 className="text-2xl font-bold mb-4 group-hover:text-primary">{title}</h2>
         <p className="text-gray-600 leading-relaxed">{description}</p>
       </div>
-      <a href={link} className="mt-6 inline-flex items-center text-primary font-semibold hover:underline">
-        Learn More
-        {/* <ArrowRight className="ml-2 w-4 h-4" /> */}
-      </a>
+      <Link href={link}>
+        <span className="mt-6 inline-flex items-center text-primary font-semibold hover:underline">
+          Learn More
+          {/* <ArrowRight className="ml-2 w-4 h-4" /> */}
+        </span>
+      </Link>
     </div>
   );
 }

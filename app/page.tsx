@@ -1,9 +1,13 @@
 'use client';
+import Link from 'next/link';
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useTestimonials } from "./hooks/useTestimonials";
 import { testimonials } from "./data/testimonials";
 import { useHorizontalScroll } from "./hooks/useHorizontalScroll";
+import HeroVideoCarousel from './components/Indexherovideo';
+import { PartnerShowcase } from "./components/Partners";
+import { partners } from "./data/partners";
 
 
 export default function Home() {
@@ -12,35 +16,43 @@ export default function Home() {
   const currentTestimonial = useTestimonials(testimonials, 6000);
 
   return (
-    <div className="bg-white">
+    <div className="">
       
-      {/* Hero Section */}
-      <section id="hero"
-        className="relative py-32 bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/images/hero-image.jpeg')",
-        }}
-        >
+      <HeroVideoCarousel
+        videos={[
+          '/videos/heroesvideo1.mp4',
+          '/videos/heroesvideo2.mp4',
+          '/videos/heroesvideo3.mp4',
+          '/videos/monevideo.mp4',
+        ]}
+        heading="Transforming Businesses with Expert Consultancy"
+        subheading="We help businesses achieve growth, efficiency, and innovation."
+        buttonText="Get a Free Consultation"
+        buttonLink="/contact"
+       />
 
-        {/* Overlay to improve text readability */}
-        <div className="absolute inset-0 bg-opacity-100"></div>
-
-        {/* Content */}
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-2xl text-left">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Transforming Businesses with Expert Consultancy
-            </h1>
-            <p className="text-lg md:text-xl text-gray-200 mb-8">
-              We help businesses achieve growth, efficiency, and innovation.
-            </p>
-            <button className="bg-[#4B5563] text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-              Get a Free Consultation
-            </button>
-          </div>
-        </div>
-      </section>
-
+           {/* Navigation Anchor Links */}
+           <div className="sticky top-0 bg-[#E5E7EB] shadow-sm z-10">
+             <div className="container mx-auto px-4 py-4 overflow-x-auto">
+               <div className="flex space-x-6 md:space-x-8 justify-center md:justify-start">
+                 <Link href="#about-us" className="text-gray-600 hover:text-blue-600 whitespace-nowrap">
+                   Who Are We
+                 </Link>
+                 <Link href="#services" className="text-gray-600 hover:text-blue-600 whitespace-nowrap">
+                   Services
+                 </Link>
+                 <Link href="#case-studies" className="text-gray-600 hover:text-blue-600 whitespace-nowrap">
+                   Case Studies
+                 </Link>
+                 <Link href="#why-choose-us" className="text-gray-600 hover:text-blue-600 whitespace-nowrap">
+                   Why Choose Us?
+                 </Link>
+                 <Link href="#testimonials" className="text-gray-600 hover:text-blue-600 whitespace-nowrap">
+                   Testimonials
+                 </Link>
+               </div>
+             </div>
+           </div>
 
       {/* About Us Section */}
       <section id="about-us" className="relative min-h-[600px] flex items-center bg-gray-50">
@@ -56,7 +68,7 @@ export default function Home() {
                 muted 
                 playsInline
               >
-                <source src="/videos/video4.mp4" type="video/mp4" />
+                <source src="/videos/teamvid.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>
@@ -64,12 +76,18 @@ export default function Home() {
 
           {/* Right: About Us Text */}
           <div className="w-full md:w-1/2 text-gray-900 text-center md:text-left px-8">
-            <h2 className="text-4xl font-bold mb-4">About Us</h2>
-            <p className="text-lg leading-relaxed">
+            <h2 className="text-4xl font-bold mb-4">Who We Are</h2>
+            <p className="text-lg leading-relaxed mb-6">
               With over 20 years of experience, we specialize in providing tailored 
               consultancy solutions to help businesses thrive in a competitive landscape. 
               Our team of experts is dedicated to delivering results that matter.
             </p>
+            <a
+              href="/about"
+              className="inline-block bg-[#4B5563] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+            >
+              Learn More About Us
+            </a>
           </div>
 
         </div>
@@ -151,19 +169,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Client Logos */}
-      <section className="bg-aqua-mint py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Trusted By
-          </h2>
-          <div className="flex flex-wrap justify-center gap-8">
-            <img src="/client1-logo.png" alt="Client 1" className="h-12" />
-            <img src="/client2-logo.png" alt="Client 2" className="h-12" />
-            <img src="/client3-logo.png" alt="Client 3" className="h-12" />
-          </div>
-        </div>
-      </section>
+
+    
+      <PartnerShowcase 
+        partners={partners}
+        bgFrom="from-indigo-50"
+        bgTo="to-teal-50"
+        scrollDuration={45}
+      />
+
 
       {/* Why Choose Us? */}
       <section id="why-choose-us" className="py-20">
@@ -200,21 +214,22 @@ export default function Home() {
         </div>
       </section>
 
+
       
-    {/* Testimonials */}
-      <section id="testimonials" className="bg-[#E5E7EB] py-10">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-          What Our Clients Say
-        </h2>
+      {/* Testimonials */}
+        <section id="testimonials" className="bg-[#E5E7EB] py-10">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+            What Our Clients Say
+          </h2>
 
-        <div className="flex justify-center items-center">
-          <div className="relative w-full max-w-lg">
-            <AnimatePresence mode="wait">
-              <motion.div
+          <div className="flex justify-center items-center">
+            <div className="relative w-full max-w-lg">
+              <AnimatePresence mode="wait">
+                <motion.div
 
 
-                // key={currentTestimonial.quote}
+                  // key={currentTestimonial.quote}
                 // initial={{ opacity: 0, rotate: -5 }}
                 // animate={{ opacity: 1, rotate: 0 }}
                 // exit={{ opacity: 0, rotate: 5 }}
